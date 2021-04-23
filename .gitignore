@@ -1,0 +1,6 @@
+*.csv
+*.json
+.idea/
+.venv/
+chromedriver
+**/__pycache__/
