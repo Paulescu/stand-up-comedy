@@ -5,7 +5,8 @@ from typing import (Dict, List)
 import os
 from pdb import set_trace as stop
 
-# from stand_up_comedy.constants import DATA_DIR
+import pandas as pd
+
 
 DATA_DIR = os.getenv('DATA_DIR')
 print('DATA_DIR: ', DATA_DIR)
@@ -162,7 +163,7 @@ def get_keyword_distribution() -> Dict:
     return stats
 
 
-def get_ml_dataset() -> List[Dict]:
+def generate_ml_dataset():
     """"""
     dataset = []
     ids = get_ids_with_transcript()
@@ -172,4 +173,12 @@ def get_ml_dataset() -> List[Dict]:
             'keyword': document['keyword'],
             'text': document['transcript'],
         })
-    return dataset
+
+    df = pd.DataFrame(dataset)
+    df.to_csv(Path(DATA_DIR) / 'ml' / 'v0.csv', index=False)
+
+
+def get_ml_dataset() -> List[Dict]:
+    """"""
+    path = Path(DATA_DIR) / 'ml' / 'v0.csv'
+    return pd.read_csv(path)
