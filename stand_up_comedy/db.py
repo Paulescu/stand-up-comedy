@@ -5,7 +5,10 @@ from typing import (Dict, List)
 import os
 from pdb import set_trace as stop
 
-from stand_up_comedy.constants import DATA_DIR
+# from stand_up_comedy.constants import DATA_DIR
+
+DATA_DIR = os.getenv('DATA_DIR')
+print('DATA_DIR: ', DATA_DIR)
 
 
 def id2path(

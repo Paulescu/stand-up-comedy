@@ -13,7 +13,6 @@ from stand_up_comedy.constants import (DATA_DIR, CHROME_DRIVER_PATH)
 from stand_up_comedy.exceptions import (InvalidURL)
 
 
-
 def scrape_youtube_video_ids(keyword: str):
     """"""
     options = Options()

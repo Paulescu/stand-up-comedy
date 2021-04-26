@@ -4,3 +4,4 @@
 .venv/
 chromedriver
 **/__pycache__/
+**/.ipynb_checkpoints
