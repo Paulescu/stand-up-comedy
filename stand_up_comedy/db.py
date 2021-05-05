@@ -4,12 +4,19 @@ import random
 from typing import (Dict, List)
 import os
 from pdb import set_trace as stop
+from dotenv import load_dotenv
 
 import pandas as pd
 
+from logger import get_logger
 
+load_dotenv()
 DATA_DIR = os.getenv('DATA_DIR')
-print('DATA_DIR: ', DATA_DIR)
+# DATA_DIR = os.getenv('DATA_DIR')
+# print('DATA_DIR: ', DATA_DIR)
+
+log = get_logger(__name__)
+log.info(f'DATA_DIR: {DATA_DIR}')
 
 
 def id2path(
@@ -163,7 +170,7 @@ def get_keyword_distribution() -> Dict:
     return stats
 
 
-def generate_ml_dataset():
+def generate_ml_datasets():
     """"""
     dataset = []
     ids = get_ids_with_transcript()
@@ -175,10 +182,22 @@ def generate_ml_dataset():
         })
 
     df = pd.DataFrame(dataset)
-    df.to_csv(Path(DATA_DIR) / 'ml' / 'v0.csv', index=False)
 
+    from sklearn.model_selection import train_test_split
+    train, test = train_test_split(df, test_size=0.2)
+    train.to_csv(Path(DATA_DIR) / 'ml' / 'train.csv', index=False)
+    test.to_csv(Path(DATA_DIR) / 'ml' / 'test.csv', index=False)
+
+    # smaller datasets to speed up development
+    train.head(10).to_csv(Path(DATA_DIR) / 'ml' / 'train_small.csv', index=False)
+    test.head(10).to_csv(Path(DATA_DIR) / 'ml' / 'test_small.csv', index=False)
 
 def get_ml_dataset() -> List[Dict]:
     """"""
     path = Path(DATA_DIR) / 'ml' / 'v0.csv'
     return pd.read_csv(path)
+
+
+if __name__ == '__main__':
+
+    generate_ml_datasets()

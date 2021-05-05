@@ -9,8 +9,10 @@ from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api._errors import TranscriptsDisabled
 
 import stand_up_comedy.db as db
-from stand_up_comedy.constants import (DATA_DIR, CHROME_DRIVER_PATH)
+# from stand_up_comedy.constants import (DATA_DIR, CHROME_DRIVER_PATH)
 from stand_up_comedy.exceptions import (InvalidURL)
+
+
 
 
 def scrape_youtube_video_ids(keyword: str):
