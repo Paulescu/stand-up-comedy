@@ -9,7 +9,7 @@
     - [x] Train model and generate a few samples.
 
 - [x] Refactor code to use Pytorch Lightning
-- [ ] Allow saving/loading model checkpoints.
+- [x] Allow saving/loading model checkpoints.
 - [ ] Train model with Colab.
 
 

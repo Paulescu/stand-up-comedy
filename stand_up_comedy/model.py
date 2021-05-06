@@ -8,7 +8,7 @@ from torch import nn
 
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import ModelCheckpoint
-
+from pytorch_lightning.loggers import TensorBoardLogger
 from torch.utils.data import Dataset, DataLoader, random_split
 from torch.nn import functional as F
 
@@ -157,7 +157,8 @@ def cli_main():
     parser.add_argument('--train_batch_size', type=int, default=2)
     parser.add_argument('--validation_batch_size', type=int, default=2)
     parser.add_argument('--max_seq_length', type=int, default=768)
-    parser.add_argument('--checkpoint_dir', type=str, default=False)
+    parser.add_argument('--checkpoint_dir', type=str)
+    parser.add_argument('--tensorboard_dir', type=str)
 
     parser = GPT2Comedian.add_model_specific_args(parser)
     parser = pl.Trainer.add_argparse_args(parser)
@@ -192,7 +193,11 @@ def cli_main():
         mode='min',
     )
 
-    trainer = pl.Trainer.from_argparse_args(args, callbacks=[checkpoint_callback])
+    logger = TensorBoardLogger(args.tensorboard_dir, name='gpt2comedian')
+
+    trainer = pl.Trainer.from_argparse_args(args,
+                                            callbacks=[checkpoint_callback],
+                                            logger=logger)
     trainer.fit(model, data_module)
 
 
