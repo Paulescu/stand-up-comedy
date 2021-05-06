@@ -50,7 +50,7 @@ class GPT2Comedian(pl.LightningModule):
 
     def validation_step(self, batch, batch_idx):
         loss = self.model(**batch).loss
-        self.log('valid_loss', loss, on_step=True, sync_dist=True)
+        self.log('val_loss', loss, on_step=True, sync_dist=True)
 
     def configure_optimizers(self):
         optimizer = AdamW(self.model.parameters(),
@@ -159,6 +159,7 @@ def cli_main():
     parser.add_argument('--max_seq_length', type=int, default=768)
     parser.add_argument('--checkpoint_dir', type=str)
     parser.add_argument('--tensorboard_dir', type=str)
+    parser.add_argument('--auto_select_gpus', type=bool, default=True)
 
     parser = GPT2Comedian.add_model_specific_args(parser)
     parser = pl.Trainer.add_argparse_args(parser)
