@@ -10,7 +10,12 @@
 
 - [x] Refactor code to use Pytorch Lightning
 - [x] Allow saving/loading model checkpoints.
-- [ ] Train model with Colab.
+- [x] Train model with Colab.
+- [ ] Resume training from checkpoint.
+
+- [ ] Enable checkpoint every n steps.
+    - [ ] Re-run training in Colab.
+- [ ] Generate model samples.
 
 
 
